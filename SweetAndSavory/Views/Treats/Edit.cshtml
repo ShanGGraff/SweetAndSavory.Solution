@@ -1,0 +1,23 @@
+@{
+  Layout = "_Layout";
+}
+
+@model SweetAndSavory.Models.Treat
+
+<h2>Edit</h2>
+
+<h4>Edit this Treat: @Html.DisplayFor(model => model.TreatName)</h4>
+
+@Html.ValidationSummary(false, "", new { @class = "text-danger" })
+
+@using (Html.BeginForm())
+{
+  @Html.HiddenFor(model => model.TreatId)
+
+  @Html.LabelFor(model => model.TreatName)
+  @Html.EditorFor(model => model.TreatName)
+
+  <input type="submit" value="Save" />
+}
+
+<p>@Html.ActionLink("Back to Treat page", "Index")</p>
