@@ -4,7 +4,7 @@ using SweetAndSavory.Models;
 using System.Threading.Tasks;
 using SweetAndSavory.ViewModels;
 
-namespace RecipeBox.Controllers
+namespace SweetAndSavory.Controllers
 {
     public class AccountController : Controller
     {
