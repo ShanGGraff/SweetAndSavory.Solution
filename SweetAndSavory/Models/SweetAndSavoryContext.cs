@@ -5,9 +5,9 @@ namespace SweetAndSavory.Models
 {
   public class SweetAndSavoryContext : IdentityDbContext<ApplicationUser>
   {
-    // public DbSet<Recipe> Recipe { get; set; }
-    // public DbSet<Tag> Tag { get; set; }
-    // public DbSet<RecipeTag> RecipeTag { get; set; }
+    public DbSet<Flavor> Flavor { get; set; }
+    public DbSet<Treat> Treat { get; set; }
+    public DbSet<TreatFlavor> RecipeTag { get; set; }
 
     public SweetAndSavoryContext(DbContextOptions options) : base(options) { }
 
