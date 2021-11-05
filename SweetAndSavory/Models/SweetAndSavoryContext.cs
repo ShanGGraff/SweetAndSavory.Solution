@@ -7,7 +7,7 @@ namespace SweetAndSavory.Models
   {
     public DbSet<Flavor> Flavor { get; set; }
     public DbSet<Treat> Treat { get; set; }
-    public DbSet<TreatFlavor> RecipeTag { get; set; }
+    public DbSet<TreatFlavor> TreatFlavor { get; set; }
 
     public SweetAndSavoryContext(DbContextOptions options) : base(options) { }
 
