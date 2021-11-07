@@ -54,7 +54,7 @@ namespace SweetAndSavory.Controllers
     {
       Flavor thisFlavor = _db.Flavor
           .Include(flavor => flavor.JoinEntities)
-          .ThenInclude(join => join.Flavor)
+          .ThenInclude(join => join.Treat)
           .FirstOrDefault(flavor => flavor.FlavorId == id);
       return View(thisFlavor);
     }

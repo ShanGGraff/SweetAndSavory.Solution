@@ -53,44 +53,46 @@ namespace SweetAndSavory.Controllers
     public ActionResult Details(int id)
     {
       Treat thisTreat = _db.Treat
-          .Include(Treat => Treat.JoinEntities)
+          .Include(treat => treat.JoinEntities)
           .ThenInclude(join => join.Flavor)
-          .FirstOrDefault(Treat => Treat.TreatId == id);
+          .FirstOrDefault(treat => treat.TreatId == id);
       return View(thisTreat);
     }
+    
     [AllowAnonymous]
     public ActionResult Edit(int id)
     {
-      Treat thisTreat = _db.Treat.FirstOrDefault(Treat => Treat.TreatId == id);
+      Treat thisTreat = _db.Treat.FirstOrDefault(treat => treat.TreatId == id);
       return View(thisTreat);
     }
 
     [HttpPost]
-    public ActionResult Edit(Treat Treat)
+    public ActionResult Edit(Treat treat)
     {
-      _db.Entry(Treat).State = EntityState.Modified;
+      _db.Entry(treat).State = EntityState.Modified;
       _db.SaveChanges();
       return RedirectToAction("Index");
     }
 
     public ActionResult AddTreat(int id)
     {
-      Treat thisTreat = _db.Treat.FirstOrDefault(Treat => Treat.TreatId == id);
-      return View(thisTreat);
-    }
-    public ActionResult AddRecipe(int id)
-    {
-      Treat thisTreat = _db.Treat.FirstOrDefault(Treat => Treat.TreatId == id);
-      ViewBag.RecipeId = new SelectList(_db.Flavor, "FlavorId", "FlavorName");
+      Treat thisTreat = _db.Treat.FirstOrDefault(treat => treat.TreatId == id);
       return View(thisTreat);
     }
     
+    // public ActionResult AddFlavor(int id)
+    // {
+    //   Treat thisTreat = _db.Treat.FirstOrDefault(treat => treat.TreatId == id);
+    //   ViewBag.RecipeId = new SelectList(_db.Flavor, "FlavorId", "FlavorName");
+    //   return View(thisTreat);
+    // }
+    
     [HttpPost]
-    public ActionResult AddFlavor(Treat Treat, int FlavorId)
+    public ActionResult AddTreat(Flavor flavor, int TreatId)
       {
-        if (FlavorId != 0)
+        if (TreatId != 0)
         {
-        _db.TreatFlavor.Add(new TreatFlavor() { FlavorId = FlavorId, TreatId = Treat.TreatId });
+        _db.TreatFlavor.Add(new TreatFlavor() { TreatId = TreatId, FlavorId = flavor.FlavorId });
         }
 
         _db.SaveChanges();
@@ -99,14 +101,14 @@ namespace SweetAndSavory.Controllers
 
     public ActionResult Delete(int id)
     {
-      Treat thisTreat = _db.Treat.FirstOrDefault(Treat => Treat.TreatId == id);
+      Treat thisTreat = _db.Treat.FirstOrDefault(treat => treat.TreatId == id);
       return View(thisTreat);
     }
 
     [HttpPost, ActionName("Delete")]
     public ActionResult DeleteConfirmed(int id)
     {
-      Treat thisTreat = _db.Treat.FirstOrDefault(Treat => Treat.TreatId == id);
+      Treat thisTreat = _db.Treat.FirstOrDefault(treat => treat.TreatId == id);
       _db.Treat.Remove(thisTreat);
       _db.SaveChanges();
       return RedirectToAction("Index");

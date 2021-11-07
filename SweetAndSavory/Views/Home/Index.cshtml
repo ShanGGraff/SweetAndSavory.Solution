@@ -2,6 +2,15 @@
   Layout = "_Layout";
 }
 
+@* @using SweetAndSavory.Models; *@
+
 <h1>Sweet and Savory Main Page</h1>
+
+@* @foreach (Flavor flavor in Model)
+{
+  <li>@Html.ActionLink($"{flavor.FlavorName}", "Details", new { id = flavor.FlavorId })</li>
+} *@
+
 <p>@Html.ActionLink("Treats", "Index", "Treats")</p>
+<p>@Html.ActionLink("Flavors", "Index", "Flavors")</p>
 <p>@Html.ActionLink("Create an account", "Index", "Account")</p>
