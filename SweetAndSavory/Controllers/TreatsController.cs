@@ -74,10 +74,17 @@ namespace SweetAndSavory.Controllers
       return RedirectToAction("Index");
     }
 
+    public ActionResult AddTreat(int id)
+    {
+      var thisTreat = _db.Treat.FirstOrDefault(treat => treat.TreatId == id);
+      ViewBag.TreatId = new SelectList(_db.Treat, "TreatId", "TreatCategories");
+      return View(thisTreat);
+    }
+
     public ActionResult AddFlavor(int id)
     {
     Treat thisTreat = _db.Treat.FirstOrDefault(treat => treat.TreatId == id);
-    ViewBag.RecipeId = new SelectList(_db.Flavor, "FlavorId", "FlavorName");
+    ViewBag.FlavorId = new SelectList(_db.Flavor, "FlavorId", "FlavorName");
     return View(thisTreat);
     }
     

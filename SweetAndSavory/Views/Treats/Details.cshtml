@@ -14,7 +14,7 @@
 }
 else
 {
-  <h4>Recipes the Treat is accociated with:</h4>
+  <h4>Flavors the Treat is accociated with:</h4>
   <ul>
   @foreach(var join in Model.JoinEntities)
   {
@@ -29,7 +29,6 @@ else
 }
 
 <p>@Html.ActionLink("Add a Flavor", "AddFlavor", new { id = Model.TreatId })</p>
-
 <p>@Html.ActionLink("Edit Treat", "Edit", new { id = Model.TreatId })</p>
 <p>@Html.ActionLink("Delete Treat", "Delete", new { id = Model.TreatId })</p>
 <p>@Html.ActionLink("Back to list", "Index")</p>

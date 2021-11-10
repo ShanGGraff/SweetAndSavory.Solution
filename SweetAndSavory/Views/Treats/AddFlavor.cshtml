@@ -2,17 +2,17 @@
   Layout = "_Layout";
 }
 
-@model SweetAndSavory.Models.Flavor
+@model SweetAndSavory.Models.Treat
 
 <h2>Add a flavor</h2>
 
-<h4>Add a flavor for this treat: @Html.DisplayFor(model => model.FlavorName)</h4>
+<h4>Add a flavor for this treat: @Html.DisplayFor(model => model.TreatName)</h4>
 
 @using (Html.BeginForm())
 {
-  @Html.HiddenFor(model => model.FlavorId)
+  @Html.HiddenFor(model => model.TreatId)
 
-  @Html.Label("Select flavor")
+  @Html.Label("Select Flavor")
   @Html.DropDownList("FlavorId")
 
   <input type="submit" value="Save" />
