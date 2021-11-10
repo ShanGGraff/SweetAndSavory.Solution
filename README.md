@@ -53,9 +53,8 @@ The application utilizes a many-to-many database relationship. The database cons
 14. If everything builds correctly, run ```dotnet run``` on the command line to start the web server
 
 ## Known Bugs <a id="bugs"></a>
-* Need to get authentication working. 
-* Current bug where the controllers aren't working for AddTreat and AddFlavor
 * No splashpage that list treats and flavors.
+* Can add same flavors and treats
 
 ## License
 * [MIT](https://choosealicense.com/licenses/mit/)
