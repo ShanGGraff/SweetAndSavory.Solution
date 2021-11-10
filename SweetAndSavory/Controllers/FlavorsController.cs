@@ -11,6 +11,7 @@ using System.Security.Claims;
 
 namespace SweetAndSavory.Controllers
 {
+  // [Authorize]
   public class FlavorsController : Controller
   {
     private readonly SweetAndSavoryContext _db;
@@ -19,14 +20,17 @@ namespace SweetAndSavory.Controllers
     {
       _db = db;
     }
-    public ActionResult Index()
-    {
-      return View(_db.Flavor.ToList());
-    }
-    public ActionResult Create()
-    {
-      return View();
-    }
+    // private readonly UserManager<ApplicationUser> _userManager;
+
+      public ActionResult Index()
+      {
+        return View(_db.Flavor.ToList());
+      }
+ 
+      public ActionResult Create()
+      {
+        return View();
+      }
 
     [HttpPost]
     public ActionResult Create(Flavor flavor)
@@ -54,11 +58,11 @@ namespace SweetAndSavory.Controllers
     {
       Flavor thisFlavor = _db.Flavor
           .Include(flavor => flavor.JoinEntities)
-          .ThenInclude(join => join.Treat)
+          .ThenInclude(join => join.Flavor)
           .FirstOrDefault(flavor => flavor.FlavorId == id);
       return View(thisFlavor);
     }
-    [AllowAnonymous]
+
     public ActionResult Edit(int id)
     {
       Flavor thisFlavor = _db.Flavor.FirstOrDefault(flavor => flavor.FlavorId == id);
@@ -68,28 +72,35 @@ namespace SweetAndSavory.Controllers
     [HttpPost]
     public ActionResult Edit(Flavor flavor)
     {
+
       _db.Entry(flavor).State = EntityState.Modified;
       _db.SaveChanges();
       return RedirectToAction("Index");
     }
-
     public ActionResult AddFlavor(int id)
     {
-      Flavor thisFlavor = _db.Flavor.FirstOrDefault(flavor => flavor.FlavorId == id);
+      var thisFlavor = _db.Flavor.FirstOrDefault(recipe => recipe.FlavorId == id);
+      ViewBag.FlavorId = new SelectList(_db.Flavor, "FlvorId", "FlavorCategories");
       return View(thisFlavor);
     }
-    
-    [HttpPost]
-    public ActionResult AddFlavor(Treat treat, int FlavorId)
-      {
-        if (FlavorId != 0)
-        {
-        _db.TreatFlavor.Add(new TreatFlavor() { FlavorId = FlavorId, TreatId = treat.TreatId });
-        }
+    public ActionResult AddTreat(int id)
+    {
+        Flavor thisFlavor = _db.Flavor.FirstOrDefault(flavor => flavor.FlavorId == id);
+        ViewBag.TreatId = new SelectList(_db.Treat, "TreatId", "TreatName");
+        return View(thisFlavor);
+    }
 
-        _db.SaveChanges();
-        return RedirectToAction("Index");
+    [HttpPost]
+    public ActionResult AddTreat(Flavor flavor, int TreatId)
+    {
+      if (TreatId != 0)
+      {
+      _db.TreatFlavor.Add(new () { TreatId = TreatId, FlavorId = flavor.FlavorId });
       }
+
+      _db.SaveChanges();
+      return RedirectToAction("Index");
+    }
 
     public ActionResult Delete(int id)
     {
@@ -105,8 +116,7 @@ namespace SweetAndSavory.Controllers
       _db.SaveChanges();
       return RedirectToAction("Index");
     }
-
-    public ActionResult DeleteFlavor(int joinId)
+    public ActionResult DeleteTreat(int joinId)
     {
       TreatFlavor joinEntry = _db.TreatFlavor.FirstOrDefault(entry => entry.TreatFlavorId == joinId);
       _db.TreatFlavor.Remove(joinEntry);
@@ -115,3 +125,5 @@ namespace SweetAndSavory.Controllers
     }
   }
 }
+
+
